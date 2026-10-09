@@ -30,6 +30,8 @@
       --shadow: rgba(58, 49, 42, 0.08);
       --shadow-strong: rgba(58, 49, 42, 0.12);
       --success: #6ca184;
+      --danger: #bf7d7d;
+      --warning: #e6c673;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -225,6 +227,7 @@
     }
 
     .mini-day {
+      position: relative;
       aspect-ratio: 1;
       border-radius: 8px;
       display: flex;
@@ -251,6 +254,18 @@
     .mini-day.today {
       background: linear-gradient(135deg, var(--rose), var(--peach));
       box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+    }
+
+    .mini-day.has-event::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--rose-deep);
+      border-radius: 50%;
+      bottom: 3px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .daily-header {
@@ -327,7 +342,7 @@
       gap: 12px;
     }
 
-    textarea, input[type="text"] {
+    textarea, input[type="text"], select {
       width: 100%;
       border: 1px solid transparent;
       background: var(--paper-alt);
@@ -340,7 +355,7 @@
       transition: border-color .2s ease, box-shadow .2s ease;
     }
 
-    textarea:focus, input[type="text"]:focus {
+    textarea:focus, input[type="text"]:focus, select:focus {
       border-color: rgba(155,126,182,.5);
       box-shadow: 0 0 0 3px rgba(155,126,182,.08);
       background: #fff;
@@ -442,6 +457,90 @@
       background: #fff;
     }
 
+    .event-form {
+      display: grid;
+      gap: 8px;
+    }
+
+    .event-controls {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 8px;
+    }
+
+    .event-btn {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--paper-alt);
+      padding: 10px 12px;
+      font-family: inherit;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .event-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .event-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--paper-alt);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+
+    .event-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 62px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      background: var(--sky);
+      color: #46678f;
+    }
+
+    .tag.appointment { background: var(--sky); color: #46678f; }
+    .tag.birthday { background: var(--rose); color: #83555d; }
+    .tag.event { background: var(--sage); color: #446d60; }
+
+    .event-text {
+      font-size: 0.86rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .remove-event {
+      background: transparent;
+      border: none;
+      color: var(--danger);
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 2px 4px;
+    }
+
     .actions {
       display: flex;
       justify-content: flex-end;
@@ -465,6 +564,7 @@
       .header-actions { width: 100%; }
       .segmented { width: 100%; justify-content: center; }
       .daily-header { align-items: flex-start; }
+      .event-controls { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -489,7 +589,7 @@
         <span><span class="legend-dot" style="background: var(--rose);"></span> focus</span>
         <span><span class="legend-dot" style="background: var(--sage);"></span> rhythm</span>
         <span><span class="legend-dot" style="background: var(--lavender);"></span> projects</span>
-        <span><span class="legend-dot" style="background: var(--sky);"></span> reflection</span>
+        <span><span class="legend-dot" style="background: var(--sky);"></span> events</span>
       </div>
       <div class="year-selector" style="display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap;">
         <button class="segment active" data-year="2026" style="background: var(--paper); box-shadow: 0 4px 12px rgba(58,49,42,.06);">2026</button>
@@ -604,6 +704,29 @@
           </div>
         </div>
       </div>
+
+      <div class="dashboard-grid" style="margin-top:20px;">
+        <div class="column" style="grid-column: 1 / -1;">
+          <div class="card">
+            <div class="card-header sky">Appointments & events</div>
+            <div class="card-body">
+              <div class="event-form">
+                <input id="eventTitle" type="text" placeholder="Add appointment, birthday, or event" />
+                <div class="event-controls">
+                  <select id="eventType">
+                    <option value="appointment">Appointment</option>
+                    <option value="birthday">Birthday</option>
+                    <option value="event">Event</option>
+                  </select>
+                  <button class="event-btn" id="addEventBtn" type="button">Save event</button>
+                  <button class="event-btn" id="loadTodayBtn" type="button" style="background: var(--paper);">Today</button>
+                </div>
+              </div>
+              <div id="eventList" class="event-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="actions">
@@ -614,6 +737,7 @@
 
   <script>
     const STORAGE_KEY = 'adhd_planner_2026_2027';
+    const EVENTS_KEY = 'adhd_planner_events_v1';
     let currentDate = new Date(2026, 10, 1);
     let selectedYear = 2026;
     let currentView = 'year';
@@ -635,12 +759,30 @@
       { name: 'December', key: 'dec', year: 2027 }
     ];
 
+    function formatDateKey(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function getEvents() {
+      try { return JSON.parse(localStorage.getItem(EVENTS_KEY) || '{}'); }
+      catch { return {}; }
+    }
+
+    function saveEvents(events) {
+      localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+    }
+
     function init() {
       renderYearOverview();
       renderDaily();
       bindEvents();
       loadState();
+      renderEventList();
       updateDateDisplay();
+      renderYearOverview();
     }
 
     function bindEvents() {
@@ -652,7 +794,10 @@
           document.getElementById('year-view').classList.toggle('active', view === 'year');
           document.getElementById('daily-view').classList.toggle('active', view === 'daily');
           currentView = view;
-          if (view === 'daily') updateDateDisplay();
+          if (view === 'daily') {
+            updateDateDisplay();
+            renderEventList();
+          }
         });
       });
 
@@ -668,12 +813,22 @@
       document.getElementById('prevBtn').addEventListener('click', () => {
         currentDate.setDate(currentDate.getDate() - 1);
         updateDateDisplay();
+        renderEventList();
         loadState();
       });
 
       document.getElementById('nextBtn').addEventListener('click', () => {
         currentDate.setDate(currentDate.getDate() + 1);
         updateDateDisplay();
+        renderEventList();
+        loadState();
+      });
+
+      document.getElementById('addEventBtn').addEventListener('click', addEvent);
+      document.getElementById('loadTodayBtn').addEventListener('click', () => {
+        currentDate = new Date();
+        updateDateDisplay();
+        renderEventList();
         loadState();
       });
 
@@ -685,8 +840,9 @@
         });
       });
 
-      document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+      document.querySelectorAll('input[type="text"], textarea, select').forEach(el => {
         el.addEventListener('input', saveState);
+        el.addEventListener('change', saveState);
       });
 
       document.querySelectorAll('.checkbox').forEach(box => {
@@ -717,11 +873,85 @@
       });
     }
 
+    function addEvent() {
+      const titleInput = document.getElementById('eventTitle');
+      const typeSelect = document.getElementById('eventType');
+      const title = titleInput.value.trim();
+      if (!title) return;
+
+      const events = getEvents();
+      const key = formatDateKey(currentDate);
+      const list = events[key] || [];
+      list.push({
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        title,
+        type: typeSelect.value
+      });
+      events[key] = list;
+      saveEvents(events);
+      titleInput.value = '';
+      renderEventList();
+      renderYearOverview();
+    }
+
+    function renderEventList() {
+      const listEl = document.getElementById('eventList');
+      const key = formatDateKey(currentDate);
+      const events = getEvents()[key] || [];
+      listEl.innerHTML = '';
+
+      if (events.length === 0) {
+        const empty = document.createElement('div');
+        empty.style.padding = '10px 0';
+        empty.style.color = 'var(--muted)';
+        empty.textContent = 'No appointments or events saved for this date.';
+        listEl.appendChild(empty);
+        return;
+      }
+
+      events.forEach(event => {
+        const item = document.createElement('div');
+        item.className = 'event-item';
+
+        const main = document.createElement('div');
+        main.className = 'event-main';
+
+        const tag = document.createElement('span');
+        tag.className = `tag ${event.type}`;
+        tag.textContent = event.type;
+
+        const text = document.createElement('div');
+        text.className = 'event-text';
+        text.textContent = event.title;
+
+        main.appendChild(tag);
+        main.appendChild(text);
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-event';
+        removeBtn.textContent = '×';
+        removeBtn.setAttribute('aria-label', 'Remove event');
+        removeBtn.addEventListener('click', () => {
+          const current = getEvents();
+          current[key] = (current[key] || []).filter(e => e.id !== event.id);
+          if (current[key].length === 0) delete current[key];
+          saveEvents(current);
+          renderEventList();
+          renderYearOverview();
+        });
+
+        item.appendChild(main);
+        item.appendChild(removeBtn);
+        listEl.appendChild(item);
+      });
+    }
+
     function renderYearOverview() {
       const grid = document.getElementById('yearGrid');
       grid.innerHTML = '';
 
       const months = monthMeta.filter(m => m.year === selectedYear);
+      const allEvents = getEvents();
 
       months.forEach(month => {
         const monthCard = document.createElement('div');
@@ -752,15 +982,17 @@
           cell.className = 'mini-day';
           if (date.getMonth() !== firstDay.getMonth()) cell.classList.add('other-month');
           if (date.toDateString() === new Date().toDateString()) cell.classList.add('today');
+          if (allEvents[formatDateKey(date)] && allEvents[formatDateKey(date)].length) cell.classList.add('has-event');
           cell.textContent = date.getDate();
           cell.addEventListener('click', () => {
             currentDate = new Date(date);
-            document.querySelectorAll('.segment[data-view="daily"]').forEach(b => b.classList.add('active'));
             document.querySelectorAll('.segment[data-view="year"]').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.segment[data-view="daily"]').forEach(b => b.classList.add('active'));
             document.getElementById('year-view').classList.remove('active');
             document.getElementById('daily-view').classList.add('active');
             currentView = 'daily';
             updateDateDisplay();
+            renderEventList();
             loadState();
           });
           miniGrid.appendChild(cell);
