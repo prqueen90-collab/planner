@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>ADHD Daily Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FAF7F2;
+      --card-bg: #FFFFFF;
+      --border-soft: #EFE7DE;
+      --text-main: #3C3836;
+      --text-muted: #847C75;
+      
+      --pastel-pink: #F9E1E4;
+      --pastel-pink-dark: #E4A8B2;
+      --pastel-purple: #EFE4F7;
+      --pastel-purple-dark: #B99FD1;
+      --pastel-green: #E1EFEA;
+      --pastel-green-dark: #91BAAB;
+      --pastel-peach: #FDE8DD;
+      --pastel-peach-dark: #E3B29B;
+      --pastel-blue: #E2ECF7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      font-family: 'Quicksand', sans-serif;
+      color: var(--text-main);
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .planner-shell {
+      width: 100%;
+      max-width: 1100px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 24px;
+      box-shadow: 0 10px 35px rgba(100, 80, 70, 0.05);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px dashed var(--border-soft);
+      padding-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.85rem;
+      letter-spacing: 0.02em;
+      color: #383431;
+    }
+
+    .energy-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-cream);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .energy-btn {
+      border: none;
+      background: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0.35;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .energy-btn.active {
+      opacity: 1;
+      transform: scale(1.25);
+    }
+
+    /* Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      .planner-shell {
+        padding: 16px;
+      }
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Cards */
+    .card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pink-header   { background: var(--pastel-pink); color: #8F515C; }
+    .purple-header { background: var(--pastel-purple); color: #6D5087; }
+    .green-header  { background: var(--pastel-green); color: #4B7364; }
+    .peach-header  { background: var(--pastel-peach); color: #8C5C48; }
+
+    .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-grow: 1;
+    }
+
+    /* Inputs */
+    textarea {
+      width: 100%;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: var(--bg-cream);
+      font-family: inherit;
+      font-size: 0.92rem;
+      padding: 10px;
+      resize: vertical;
+      color: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    textarea:focus {
+      border-color: var(--pastel-pink-dark);
+      background: #FFF;
+    }
+
+    .task-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .custom-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--pastel-purple-dark);
+      background: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .custom-check.checked {
+      background: var(--pastel-purple-dark);
+      color: white;
+    }
+
+    .custom-check.checked::after {
+      content: '✓';
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .task-input {
+      border: none;
+      border-bottom: 1px dashed var(--border-soft);
+      padding: 4px 2px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      width: 100%;
+      background: transparent;
+      outline: none;
+    }
+
+    .task-input.completed {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* Habits & Progress */
+    .progress-bar-wrap {
+      width: 100%;
+      height: 8px;
+      background: var(--bg-cream);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--pastel-green-dark);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Schedule */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 55px 1fr;
+      gap: 6px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .time-slot {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      align-self: center;
+    }
+
+    .block-input {
+      background: var(--bg-cream);
+      border: none;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .block-input:focus {
+      background: #FFFFFF;
+      box-shadow: 0 0 0 1px var(--pastel-peach-dark);
+    }
+
+    /* Footer reset */
+    .footer-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn-quiet {
+      border: none;
+      background: none;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="planner-shell">
+    <header>
+      <div>
+        <h1>Daily Focus & Flow</h1>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;" id="currentDateDisplay">Today</p>
+      </div>
+
+      <div class="energy-picker">
+        <span>Energy:</span>
+        <button class="energy-btn" data-level="low" title="Low Energy">🔋</button>
+        <button class="energy-btn" data-level="med" title="Moderate Energy">⚡</button>
+        <button class="energy-btn" data-level="high" title="Hyperfocus / High">✨</button>
+      </div>
+    </header>
+
+    <div class="dashboard-grid">
+      <!-- Column 1: Focus & Top 3 -->
+      <div class="column">
+        <div class="card">
+          <div class="card-title pink-header">One Big Win</div>
+          <div class="card-body">
+            <textarea id="mainFocus" rows="2" placeholder="If I only accomplish one thing today..."></textarea>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title purple-header">Essential 3 (Don't Overload)</div>
+          <div class="card-body">
+            <div class="task-row">
+              <div class="custom-check" data-id="top1"></div>
+              <input type="text" class="task-input" id="top1-text" placeholder="Priority #1" />
+            </div>
+            <div class="task-row">
+              <div class="custom-check" data-id="top2"></div>
+              <input type="text" class="task-input" id="top2-text" placeholder="Priority #2" />
+            </div>
+            <div class="task-row">
+              <div class="custom-check" data-id="top3"></div>
+              <input type="text" class="task-input" id="top3-text" placeholder="Priority #3" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title peach-header">Backlog / If Time Permits</div>
+          <div class="card-body">
+            <div class="task-row">
+              <div class="custom-check" data-id="extra1"></div>
+              <input type="text" class="task-input" id="extra1-text" placeholder="Low-pressure task..." />
+            </div>
+            <div class="task-row">
+              <div class="custom-check" data-id="extra2"></div>
+              <input type="text" class="task-input" id="extra2-text" placeholder="Low-pressure task..." />
+            </div>
+            <div class="task-row">
+              <div class="custom-check" data-id="extra3"></div>
+              <input type="text" class="task-input" id="extra3-text" placeholder="Low-pressure task..." />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Visual Time Blocks -->
+      <div class="column">
+        <div class="card" style="height: 100%;">
+          <div class="card-title peach-header">Visual Flow Blocks</div>
+          <div class="card-body">
+            <div class="schedule-grid" id="scheduleBlocks">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3: Habits & Brain Dump -->
+      <div class="column">
+        <div class="card">
+          <div class="card-title green-header">
+            <span>Dopamine Anchors</span>
+            <span id="habitProgressText" style="font-size: 0.75rem; text-transform: none;">0/4</span>
+          </div>
+          <div class="card-body">
+            <div class="progress-bar-wrap">
+              <div class="progress-fill" id="habitProgressFill"></div>
+            </div>
+            <div class="task-row" style="margin-top: 6px;">
+              <div class="custom-check habit-check" data-id="water"></div>
+              <span style="font-size: 0.88rem;">Hydrate / Water check</span>
+            </div>
+            <div class="task-row">
+              <div class="custom-check habit-check" data-id="movement"></div>
+              <span style="font-size: 0.88rem;">10-min sunlight / Walk</span>
+            </div>
+            <div class="task-row">
+              <div class="custom-check habit-check" data-id="meds"></div>
+              <span style="font-size: 0.88rem;">Meds / Supplements</span>
+            </div>
+            <div class="task-row">
+              <div class="custom-check habit-check" data-id="reset"></div>
+              <span style="font-size: 0.88rem;">5-min desk declutter</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="flex-grow: 1;">
+          <div class="card-title purple-header">Brain Dump (Parking Lot)</div>
+          <div class="card-body">
+            <textarea id="brainDump" style="height: 100%; min-height: 140px;" placeholder="Get intrusive thoughts, random rabbit holes, or errands out of your head..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-actions">
+      <button class="btn-quiet" id="resetTodayBtn">Clear Completed Checks</button>
+      <button class="btn-quiet" id="clearAllBtn" style="color: #c97d7d;">Reset Everything</button>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'adhd_planner_state_v1';
+
+    // Time schedule slots
+    const hours = ['8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM'];
+    const scheduleContainer = document.getElementById('scheduleBlocks');
+
+    hours.forEach(time => {
+      const timeLabel = document.createElement('div');
+      timeLabel.className = 'time-slot';
+      timeLabel.innerText = time;
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'block-input';
+      input.dataset.time = time;
+
+      scheduleContainer.appendChild(timeLabel);
+      scheduleContainer.appendChild(input);
+    });
+
+    // Form state handling
+    function loadState() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : { textFields: {}, checkBoxes: {}, energy: null };
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    const state = loadState();
+
+    // Set readable date
+    const today = new Date();
+    document.getElementById('currentDateDisplay').innerText = today.toLocaleDateString('en-US', {
+      weekday: 'long', month: 'short', day: 'numeric'
+    });
+
+    // Restore text inputs
+    document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+      const key = el.id || el.dataset.time;
+      if (key && state.textFields[key]) {
+        el.value = state.textFields[key];
+      }
+      el.addEventListener('input', () => {
+        state.textFields[key] = el.value;
+        saveState(state);
+      });
+    });
+
+    // Checkbox toggles
+    function updateHabitProgress() {
+      const habitBoxes = document.querySelectorAll('.habit-check');
+      const total = habitBoxes.length;
+      let checked = 0;
+      habitBoxes.forEach(b => {
+        if (b.classList.contains('checked')) checked++;
+      });
+      document.getElementById('habitProgressText').innerText = `${checked}/${total}`;
+      document.getElementById('habitProgressFill').style.width = `${(checked / total) * 100}%`;
+    }
+
+    document.querySelectorAll('.custom-check').forEach(box => {
+      const id = box.dataset.id;
+      if (state.checkBoxes[id]) {
+        box.classList.add('checked');
+        const siblingInput = box.parentElement.querySelector('.task-input');
+        if (siblingInput) siblingInput.classList.add('completed');
+      }
+
+      box.addEventListener('click', () => {
+        const isChecked = box.classList.toggle('checked');
+        state.checkBoxes[id] = isChecked;
+        const siblingInput = box.parentElement.querySelector('.task-input');
+        if (siblingInput) siblingInput.classList.toggle('completed', isChecked);
+        saveState(state);
+        updateHabitProgress();
+      });
+    });
+    updateHabitProgress();
+
+    // Energy Selector
+    const energyButtons = document.querySelectorAll('.energy-btn');
+    if (state.energy) {
+      document.querySelector(`[data-level="${state.energy}"]`)?.classList.add('active');
+    }
+
+    energyButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        energyButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.energy = btn.dataset.level;
+        saveState(state);
+      });
+    });
+
+    // Reset controls
+    document.getElementById('resetTodayBtn').addEventListener('click', () => {
+      document.querySelectorAll('.custom-check').forEach(b => {
+        b.classList.remove('checked');
+        state.checkBoxes[b.dataset.id] = false;
+        const sibling = b.parentElement.querySelector('.task-input');
+        if (sibling) sibling.classList.remove('completed');
+      });
+      saveState(state);
+      updateHabitProgress();
+    });
+
+    document.getElementById('clearAllBtn').addEventListener('click', () => {
+      if (confirm('Start a fresh page for today?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+    });
+  </script>
+</body>
+</html>
