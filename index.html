@@ -26,6 +26,9 @@
       --pastel-peach: #FDE8DD;
       --pastel-peach-dark: #E3B29B;
       --pastel-blue: #E2ECF7;
+      --ink: #1d1a1a;
+      --paper: #f3efe9;
+      --shadow-soft: rgba(92, 75, 63, 0.12);
     }
 
     * {
@@ -57,7 +60,6 @@
       gap: 20px;
     }
 
-    /* Header */
     header {
       display: flex;
       justify-content: space-between;
@@ -75,7 +77,6 @@
       color: #383431;
     }
 
-    /* View Selector */
     .view-selector {
       display: flex;
       gap: 8px;
@@ -109,7 +110,6 @@
       flex-wrap: wrap;
     }
 
-    /* Navigation */
     .date-nav {
       display: flex;
       align-items: center;
@@ -159,7 +159,6 @@
       transform: scale(1.25);
     }
 
-    /* Grid Layout */
     .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -189,7 +188,6 @@
       gap: 16px;
     }
 
-    /* Cards */
     .card {
       background: #FFFFFF;
       border-radius: 16px;
@@ -224,7 +222,6 @@
       flex-grow: 1;
     }
 
-    /* Inputs */
     textarea, input[type="text"] {
       width: 100%;
       border: 1px solid transparent;
@@ -291,7 +288,6 @@
       color: var(--text-muted);
     }
 
-    /* Progress */
     .progress-bar-wrap {
       width: 100%;
       height: 8px;
@@ -308,7 +304,6 @@
       transition: width 0.3s ease;
     }
 
-    /* Weekly Grid */
     .weekly-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -349,13 +344,6 @@
       color: var(--text-main);
     }
 
-    .day-tasks {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* Monthly Calendar */
     .month-calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -400,7 +388,6 @@
       opacity: 0.4;
     }
 
-    /* Schedule */
     .schedule-grid {
       display: grid;
       grid-template-columns: 55px 1fr;
@@ -432,7 +419,6 @@
       box-shadow: 0 0 0 1px var(--pastel-peach-dark);
     }
 
-    /* Footer */
     .footer-actions {
       display: flex;
       justify-content: flex-end;
@@ -449,13 +435,251 @@
       text-decoration: underline;
     }
 
-    /* View Container */
     .view-content {
       display: none;
     }
 
     .view-content.active {
       display: block;
+    }
+
+    .hero-feature {
+      background: linear-gradient(135deg, rgba(249,225,228,0.65), rgba(239,228,247,0.75), rgba(249,233,216,0.7));
+      border: 1px solid var(--border-soft);
+      border-radius: 22px;
+      padding: 24px 18px 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 10px 18px var(--shadow-soft);
+    }
+
+    .hero-copy {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 4.1rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      color: var(--ink);
+      max-width: 620px;
+    }
+
+    .hero-subtitle {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .hero-kicker {
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(60,56,54,0.12);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 12px;
+      color: var(--text-main);
+    }
+
+    .mockup-stack {
+      display: grid;
+      grid-template-columns: 0.9fr 2.2fr 1fr;
+      gap: 3px;
+      align-items: end;
+      padding: 8px 0 0;
+      min-height: 380px;
+    }
+
+    .paper-panel {
+      background: #f4efe9;
+      border-radius: 16px 16px 8px 8px;
+      border: 1px solid rgba(78, 63, 53, 0.12);
+      box-shadow: 0 18px 30px rgba(60, 52, 46, 0.08);
+      position: relative;
+      min-height: 280px;
+      overflow: hidden;
+    }
+
+    .paper-panel.left {
+      transform: rotate(-12deg) translateY(14px);
+      margin-right: -16px;
+      background: linear-gradient(180deg, rgba(247,236,235,1), rgba(244,238,232,1));
+    }
+
+    .paper-panel.right {
+      transform: rotate(12deg) translateY(8px);
+      margin-left: -16px;
+      background: linear-gradient(180deg, rgba(252,246,242,1), rgba(239,233,229,1));
+    }
+
+    .paper-container {
+      position: absolute;
+      inset: 0;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .paper-big-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(39,31,28,0.8);
+      margin-top: 10px;
+      letter-spacing: -0.06em;
+    }
+
+    .paper-note {
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .index-panel {
+      background: linear-gradient(180deg, rgba(255, 250, 246, 0.95), rgba(248,243,239,1));
+      border: 1px solid rgba(67, 53, 48, 0.12);
+      border-radius: 18px 18px 10px 10px;
+      position: relative;
+      min-height: 360px;
+      box-shadow: 0 28px 34px rgba(54, 46, 39, 0.1);
+      padding: 18px 18px 12px;
+      transform: translateY(4px);
+    }
+
+    .index-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .index-head .dots {
+      letter-spacing: 0.18em;
+      color: rgba(129, 116, 109, 0.9);
+    }
+
+    .index-body {
+      display: grid;
+      grid-template-columns: 1fr 2.1fr;
+      gap: 16px;
+      height: calc(100% - 42px);
+    }
+
+    .index-column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.68rem;
+      line-height: 1.4;
+      color: var(--text-main);
+    }
+
+    .index-column .mini-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .index-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .index-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .index-list li::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      background: var(--pastel-pink-dark);
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .index-gap {
+      height: 6px;
+    }
+
+    .index-right {
+      background: rgba(255,255,255,0.4);
+      border: 1px solid rgba(77, 62, 52, 0.1);
+      border-radius: 10px;
+      padding: 12px 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mini-card {
+      border: 1px solid rgba(71, 58, 52, 0.14);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.6);
+      padding: 6px 8px;
+      font-size: 0.61rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .mini-lines {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .mini-lines span {
+      display: block;
+      height: 8px;
+      border-radius: 99px;
+      background: rgba(140, 121, 112, 0.12);
+    }
+
+    .mini-lines span:nth-child(2) { background: rgba(164, 125, 149, 0.18); }
+    .mini-lines span:nth-child(3) { background: rgba(118, 158, 146, 0.18); }
+
+    @media (max-width: 760px) {
+      .mockup-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .paper-panel.left,
+      .paper-panel.right {
+        transform: none;
+        margin: 0;
+      }
+
+      .index-panel {
+        transform: none;
+      }
     }
   </style>
 </head>
@@ -484,7 +708,83 @@
       </div>
     </header>
 
-    <!-- DAILY VIEW -->
+    <section class="hero-feature">
+      <div class="hero-copy">
+        <div>
+          <div class="hero-subtitle">Planner system</div>
+          <h2 class="hero-title">Hyperlinked Index Page</h2>
+        </div>
+        <div class="hero-kicker">Fast navigation</div>
+      </div>
+
+      <div class="mockup-stack">
+        <div class="paper-panel left">
+          <div class="paper-container">
+            <div class="paper-big-letter">A</div>
+            <div class="paper-note">Access your calendar and plans by clicking on any section.</div>
+          </div>
+        </div>
+
+        <div class="index-panel">
+          <div class="index-head">
+            <span>Index</span>
+            <span class="dots">● ● ● ●</span>
+          </div>
+
+          <div class="index-body">
+            <div class="index-column">
+              <div class="mini-label">Quick Links</div>
+              <ul class="index-list">
+                <li>Today</li>
+                <li>Focus</li>
+                <li>Habits</li>
+                <li>Backlog</li>
+                <li>Goals</li>
+                <li>Schedule</li>
+              </ul>
+              <div class="index-gap"></div>
+              <div class="mini-label">Ideas</div>
+              <ul class="index-list">
+                <li>Vision</li>
+                <li>Notes</li>
+                <li>Journal</li>
+                <li>Projects</li>
+              </ul>
+            </div>
+
+            <div class="index-right">
+              <div class="mini-card">Daily overview</div>
+              <div class="mini-card">Weekly rhythm</div>
+              <div class="mini-card">Monthly vision</div>
+              <div class="mini-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="mini-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="mini-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="paper-panel right">
+          <div class="paper-container">
+            <div class="paper-note" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: var(--text-muted);">Hyperlinked Tools</div>
+            <div class="paper-note" style="font-size: 1rem;">Click on the index to jump to the area you need.</div>
+            <div class="paper-note" style="font-size: 0.72rem; opacity: 0.8;">Buttons for fast and simple navigation. Find what you're looking for in seconds.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="view-content active" id="daily-view">
       <div class="dashboard-grid">
         <div class="column">
@@ -580,7 +880,6 @@
       </div>
     </div>
 
-    <!-- WEEKLY VIEW -->
     <div class="view-content" id="weekly-view">
       <div class="column">
         <div class="card">
@@ -617,7 +916,6 @@
       </div>
     </div>
 
-    <!-- MONTHLY VIEW -->
     <div class="view-content" id="monthly-view">
       <div class="column">
         <div class="card">
@@ -665,7 +963,6 @@
     let currentView = 'daily';
     let currentDate = new Date();
 
-    // Initialize
     function init() {
       renderDaily();
       renderWeekly();
@@ -675,7 +972,6 @@
       updateDateDisplay();
     }
 
-    // View Switching
     document.querySelectorAll('.view-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
@@ -687,7 +983,6 @@
       });
     });
 
-    // Date Navigation
     document.getElementById('prevBtn').addEventListener('click', () => {
       if (currentView === 'daily') {
         currentDate.setDate(currentDate.getDate() - 1);
@@ -698,6 +993,8 @@
       }
       updateDateDisplay();
       loadState();
+      renderWeekly();
+      renderMonthly();
     });
 
     document.getElementById('nextBtn').addEventListener('click', () => {
@@ -710,6 +1007,8 @@
       }
       updateDateDisplay();
       loadState();
+      renderWeekly();
+      renderMonthly();
     });
 
     function updateDateDisplay() {
@@ -728,12 +1027,11 @@
       }
     }
 
-    // Render Daily
     function renderDaily() {
       const scheduleContainer = document.getElementById('scheduleBlocks');
       const hours = ['8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM'];
       
-      if (scheduleContainer.children.length === 0) {
+      if (scheduleContainer && scheduleContainer.children.length === 0) {
         hours.forEach(time => {
           const timeLabel = document.createElement('div');
           timeLabel.className = 'time-slot';
@@ -750,9 +1048,9 @@
       }
     }
 
-    // Render Weekly
     function renderWeekly() {
       const weeklyGrid = document.getElementById('weeklyGrid');
+      if (!weeklyGrid) return;
       weeklyGrid.innerHTML = '';
       
       const weekStart = new Date(currentDate);
@@ -765,8 +1063,7 @@
         const dayBox = document.createElement('div');
         dayBox.className = 'day-box';
         
-        const isSameDay = day.toDateString() === currentDate.toDateString();
-        if (isSameDay) dayBox.classList.add('active');
+        if (day.toDateString() === currentDate.toDateString()) dayBox.classList.add('active');
         
         dayBox.innerHTML = `
           <div class="day-label">${day.toLocaleDateString('en-US', { weekday: 'short' })}</div>
@@ -783,9 +1080,9 @@
       }
     }
 
-    // Render Monthly
     function renderMonthly() {
       const monthCalendar = document.getElementById('monthCalendar');
+      if (!monthCalendar) return;
       monthCalendar.innerHTML = '';
       
       const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -797,7 +1094,6 @@
       });
 
       const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-      const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
       const startDate = new Date(firstDay);
       startDate.setDate(startDate.getDate() - firstDay.getDay());
 
@@ -826,7 +1122,6 @@
       }
     }
 
-    // State Management
     function getStorageKey() {
       return `${STORAGE_KEY}_${currentDate.toDateString()}`;
     }
@@ -859,7 +1154,6 @@
 
     function saveState() {
       const state = { textFields: {}, checkBoxes: {}, energy: null };
-      
       document.querySelectorAll('input[type="text"], textarea').forEach(el => {
         const key = el.id || el.dataset.time;
         if (key) state.textFields[key] = el.value;
