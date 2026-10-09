@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <title>ADHD Daily Planner</title>
+  <title>Daily Planner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -46,7 +46,7 @@
 
     .planner-shell {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1200px;
       background: var(--card-bg);
       border: 1px solid var(--border-soft);
       border-radius: 24px;
@@ -73,6 +73,65 @@
       font-size: 1.85rem;
       letter-spacing: 0.02em;
       color: #383431;
+    }
+
+    /* View Selector */
+    .view-selector {
+      display: flex;
+      gap: 8px;
+      background: var(--bg-cream);
+      padding: 6px;
+      border-radius: 99px;
+    }
+
+    .view-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text-muted);
+    }
+
+    .view-btn.active {
+      background: var(--card-bg);
+      color: var(--text-main);
+      box-shadow: 0 2px 8px rgba(100, 80, 70, 0.1);
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    /* Navigation */
+    .date-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-cream);
+      padding: 8px 12px;
+      border-radius: 99px;
+    }
+
+    .date-nav button {
+      border: none;
+      background: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+
+    .date-nav span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      min-width: 120px;
+      text-align: center;
     }
 
     .energy-picker {
@@ -114,6 +173,14 @@
       .planner-shell {
         padding: 16px;
       }
+      .header-controls {
+        flex-direction: column;
+        width: 100%;
+      }
+      .view-selector {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     .column {
@@ -147,6 +214,7 @@
     .purple-header { background: var(--pastel-purple); color: #6D5087; }
     .green-header  { background: var(--pastel-green); color: #4B7364; }
     .peach-header  { background: var(--pastel-peach); color: #8C5C48; }
+    .blue-header   { background: var(--pastel-blue); color: #3D5A7C; }
 
     .card-body {
       padding: 14px;
@@ -157,7 +225,7 @@
     }
 
     /* Inputs */
-    textarea {
+    textarea, input[type="text"] {
       width: 100%;
       border: 1px solid transparent;
       border-radius: 8px;
@@ -171,7 +239,7 @@
       transition: border-color 0.2s ease;
     }
 
-    textarea:focus {
+    textarea:focus, input[type="text"]:focus {
       border-color: var(--pastel-pink-dark);
       background: #FFF;
     }
@@ -223,7 +291,7 @@
       color: var(--text-muted);
     }
 
-    /* Habits & Progress */
+    /* Progress */
     .progress-bar-wrap {
       width: 100%;
       height: 8px;
@@ -238,6 +306,98 @@
       background: var(--pastel-green-dark);
       width: 0%;
       transition: width 0.3s ease;
+    }
+
+    /* Weekly Grid */
+    .weekly-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .day-box {
+      background: var(--bg-cream);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .day-box:hover {
+      border-color: var(--pastel-pink-dark);
+      box-shadow: 0 4px 12px rgba(100, 80, 70, 0.1);
+    }
+
+    .day-box.active {
+      background: var(--pastel-pink);
+      border-color: var(--pastel-pink-dark);
+    }
+
+    .day-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .day-date {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .day-tasks {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Monthly Calendar */
+    .month-calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .calendar-header {
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 8px 0;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      background: var(--bg-cream);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .calendar-day:hover {
+      border-color: var(--pastel-pink-dark);
+    }
+
+    .calendar-day.active {
+      background: var(--pastel-pink);
+      border-color: var(--pastel-pink-dark);
+      color: #8F515C;
+    }
+
+    .calendar-day.other-month {
+      color: var(--text-muted);
+      opacity: 0.4;
     }
 
     /* Schedule */
@@ -272,7 +432,7 @@
       box-shadow: 0 0 0 1px var(--pastel-peach-dark);
     }
 
-    /* Footer reset */
+    /* Footer */
     .footer-actions {
       display: flex;
       justify-content: flex-end;
@@ -288,118 +448,207 @@
       cursor: pointer;
       text-decoration: underline;
     }
+
+    /* View Container */
+    .view-content {
+      display: none;
+    }
+
+    .view-content.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
 
   <div class="planner-shell">
     <header>
-      <div>
-        <h1>Daily Focus & Flow</h1>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;" id="currentDateDisplay">Today</p>
-      </div>
-
-      <div class="energy-picker">
-        <span>Energy:</span>
-        <button class="energy-btn" data-level="low" title="Low Energy">🔋</button>
-        <button class="energy-btn" data-level="med" title="Moderate Energy">⚡</button>
-        <button class="energy-btn" data-level="high" title="Hyperfocus / High">✨</button>
+      <h1>Daily Planner</h1>
+      <div class="header-controls">
+        <div class="view-selector">
+          <button class="view-btn active" data-view="daily">Daily</button>
+          <button class="view-btn" data-view="weekly">Weekly</button>
+          <button class="view-btn" data-view="monthly">Monthly</button>
+        </div>
+        <div class="date-nav">
+          <button id="prevBtn">◀</button>
+          <span id="dateDisplay">Today</span>
+          <button id="nextBtn">▶</button>
+        </div>
+        <div class="energy-picker">
+          <span>Energy:</span>
+          <button class="energy-btn" data-level="low" title="Low Energy">🔋</button>
+          <button class="energy-btn" data-level="med" title="Moderate Energy">⚡</button>
+          <button class="energy-btn" data-level="high" title="Hyperfocus / High">✨</button>
+        </div>
       </div>
     </header>
 
-    <div class="dashboard-grid">
-      <!-- Column 1: Focus & Top 3 -->
-      <div class="column">
-        <div class="card">
-          <div class="card-title pink-header">One Big Win</div>
-          <div class="card-body">
-            <textarea id="mainFocus" rows="2" placeholder="If I only accomplish one thing today..."></textarea>
+    <!-- DAILY VIEW -->
+    <div class="view-content active" id="daily-view">
+      <div class="dashboard-grid">
+        <div class="column">
+          <div class="card">
+            <div class="card-title pink-header">One Big Win</div>
+            <div class="card-body">
+              <textarea id="mainFocus" rows="2" placeholder="If I only accomplish one thing today..."></textarea>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title purple-header">Essential 3 (Don't Overload)</div>
+            <div class="card-body">
+              <div class="task-row">
+                <div class="custom-check" data-id="top1"></div>
+                <input type="text" class="task-input" id="top1-text" placeholder="Priority #1" />
+              </div>
+              <div class="task-row">
+                <div class="custom-check" data-id="top2"></div>
+                <input type="text" class="task-input" id="top2-text" placeholder="Priority #2" />
+              </div>
+              <div class="task-row">
+                <div class="custom-check" data-id="top3"></div>
+                <input type="text" class="task-input" id="top3-text" placeholder="Priority #3" />
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title peach-header">Backlog / If Time Permits</div>
+            <div class="card-body">
+              <div class="task-row">
+                <div class="custom-check" data-id="extra1"></div>
+                <input type="text" class="task-input" id="extra1-text" placeholder="Low-pressure task..." />
+              </div>
+              <div class="task-row">
+                <div class="custom-check" data-id="extra2"></div>
+                <input type="text" class="task-input" id="extra2-text" placeholder="Low-pressure task..." />
+              </div>
+              <div class="task-row">
+                <div class="custom-check" data-id="extra3"></div>
+                <input type="text" class="task-input" id="extra3-text" placeholder="Low-pressure task..." />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="card">
-          <div class="card-title purple-header">Essential 3 (Don't Overload)</div>
-          <div class="card-body">
-            <div class="task-row">
-              <div class="custom-check" data-id="top1"></div>
-              <input type="text" class="task-input" id="top1-text" placeholder="Priority #1" />
-            </div>
-            <div class="task-row">
-              <div class="custom-check" data-id="top2"></div>
-              <input type="text" class="task-input" id="top2-text" placeholder="Priority #2" />
-            </div>
-            <div class="task-row">
-              <div class="custom-check" data-id="top3"></div>
-              <input type="text" class="task-input" id="top3-text" placeholder="Priority #3" />
+        <div class="column">
+          <div class="card" style="height: 100%;">
+            <div class="card-title peach-header">Visual Flow Blocks</div>
+            <div class="card-body">
+              <div class="schedule-grid" id="scheduleBlocks"></div>
             </div>
           </div>
         </div>
 
-        <div class="card">
-          <div class="card-title peach-header">Backlog / If Time Permits</div>
-          <div class="card-body">
-            <div class="task-row">
-              <div class="custom-check" data-id="extra1"></div>
-              <input type="text" class="task-input" id="extra1-text" placeholder="Low-pressure task..." />
+        <div class="column">
+          <div class="card">
+            <div class="card-title green-header">
+              <span>Dopamine Anchors</span>
+              <span id="habitProgressText" style="font-size: 0.75rem; text-transform: none;">0/4</span>
             </div>
-            <div class="task-row">
-              <div class="custom-check" data-id="extra2"></div>
-              <input type="text" class="task-input" id="extra2-text" placeholder="Low-pressure task..." />
+            <div class="card-body">
+              <div class="progress-bar-wrap">
+                <div class="progress-fill" id="habitProgressFill"></div>
+              </div>
+              <div class="task-row" style="margin-top: 6px;">
+                <div class="custom-check habit-check" data-id="water"></div>
+                <span style="font-size: 0.88rem;">Hydrate / Water check</span>
+              </div>
+              <div class="task-row">
+                <div class="custom-check habit-check" data-id="movement"></div>
+                <span style="font-size: 0.88rem;">10-min sunlight / Walk</span>
+              </div>
+              <div class="task-row">
+                <div class="custom-check habit-check" data-id="meds"></div>
+                <span style="font-size: 0.88rem;">Meds / Supplements</span>
+              </div>
+              <div class="task-row">
+                <div class="custom-check habit-check" data-id="reset"></div>
+                <span style="font-size: 0.88rem;">5-min desk declutter</span>
+              </div>
             </div>
-            <div class="task-row">
-              <div class="custom-check" data-id="extra3"></div>
-              <input type="text" class="task-input" id="extra3-text" placeholder="Low-pressure task..." />
+          </div>
+
+          <div class="card" style="flex-grow: 1;">
+            <div class="card-title purple-header">Brain Dump (Parking Lot)</div>
+            <div class="card-body">
+              <textarea id="brainDump" style="height: 100%; min-height: 140px;" placeholder="Get intrusive thoughts, random rabbit holes, or errands out of your head..."></textarea>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Column 2: Visual Time Blocks -->
+    <!-- WEEKLY VIEW -->
+    <div class="view-content" id="weekly-view">
       <div class="column">
-        <div class="card" style="height: 100%;">
-          <div class="card-title peach-header">Visual Flow Blocks</div>
+        <div class="card">
+          <div class="card-title blue-header">Week Overview</div>
           <div class="card-body">
-            <div class="schedule-grid" id="scheduleBlocks">
-              <!-- Dynamically populated via JS -->
+            <div class="weekly-grid" id="weeklyGrid"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title purple-header">Weekly Goals</div>
+          <div class="card-body">
+            <div class="task-row">
+              <div class="custom-check" data-id="week1"></div>
+              <input type="text" class="task-input" id="week1-text" placeholder="Week goal #1" />
             </div>
+            <div class="task-row">
+              <div class="custom-check" data-id="week2"></div>
+              <input type="text" class="task-input" id="week2-text" placeholder="Week goal #2" />
+            </div>
+            <div class="task-row">
+              <div class="custom-check" data-id="week3"></div>
+              <input type="text" class="task-input" id="week3-text" placeholder="Week goal #3" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title green-header">Weekly Reflections</div>
+          <div class="card-body">
+            <textarea id="weeklyReflection" rows="4" placeholder="What went well? What needs adjustment next week?"></textarea>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Column 3: Habits & Brain Dump -->
+    <!-- MONTHLY VIEW -->
+    <div class="view-content" id="monthly-view">
       <div class="column">
         <div class="card">
-          <div class="card-title green-header">
-            <span>Dopamine Anchors</span>
-            <span id="habitProgressText" style="font-size: 0.75rem; text-transform: none;">0/4</span>
-          </div>
+          <div class="card-title blue-header" id="monthYearDisplay">Month Overview</div>
           <div class="card-body">
-            <div class="progress-bar-wrap">
-              <div class="progress-fill" id="habitProgressFill"></div>
-            </div>
-            <div class="task-row" style="margin-top: 6px;">
-              <div class="custom-check habit-check" data-id="water"></div>
-              <span style="font-size: 0.88rem;">Hydrate / Water check</span>
+            <div class="month-calendar" id="monthCalendar"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title pink-header">Monthly Goals</div>
+          <div class="card-body">
+            <div class="task-row">
+              <div class="custom-check" data-id="month1"></div>
+              <input type="text" class="task-input" id="month1-text" placeholder="Monthly goal #1" />
             </div>
             <div class="task-row">
-              <div class="custom-check habit-check" data-id="movement"></div>
-              <span style="font-size: 0.88rem;">10-min sunlight / Walk</span>
+              <div class="custom-check" data-id="month2"></div>
+              <input type="text" class="task-input" id="month2-text" placeholder="Monthly goal #2" />
             </div>
             <div class="task-row">
-              <div class="custom-check habit-check" data-id="meds"></div>
-              <span style="font-size: 0.88rem;">Meds / Supplements</span>
-            </div>
-            <div class="task-row">
-              <div class="custom-check habit-check" data-id="reset"></div>
-              <span style="font-size: 0.88rem;">5-min desk declutter</span>
+              <div class="custom-check" data-id="month3"></div>
+              <input type="text" class="task-input" id="month3-text" placeholder="Monthly goal #3" />
             </div>
           </div>
         </div>
 
-        <div class="card" style="flex-grow: 1;">
-          <div class="card-title purple-header">Brain Dump (Parking Lot)</div>
+        <div class="card">
+          <div class="card-title green-header">Month Notes</div>
           <div class="card-body">
-            <textarea id="brainDump" style="height: 100%; min-height: 140px;" placeholder="Get intrusive thoughts, random rabbit holes, or errands out of your head..."></textarea>
+            <textarea id="monthNotes" rows="4" placeholder="Track themes, wins, and lessons learned this month..."></textarea>
           </div>
         </div>
       </div>
@@ -412,57 +661,261 @@
   </div>
 
   <script>
-    const STORAGE_KEY = 'adhd_planner_state_v1';
+    const STORAGE_KEY = 'planner_state_v2';
+    let currentView = 'daily';
+    let currentDate = new Date();
 
-    // Time schedule slots
-    const hours = ['8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM'];
-    const scheduleContainer = document.getElementById('scheduleBlocks');
-
-    hours.forEach(time => {
-      const timeLabel = document.createElement('div');
-      timeLabel.className = 'time-slot';
-      timeLabel.innerText = time;
-
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.className = 'block-input';
-      input.dataset.time = time;
-
-      scheduleContainer.appendChild(timeLabel);
-      scheduleContainer.appendChild(input);
-    });
-
-    // Form state handling
-    function loadState() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : { textFields: {}, checkBoxes: {}, energy: null };
+    // Initialize
+    function init() {
+      renderDaily();
+      renderWeekly();
+      renderMonthly();
+      setupEventListeners();
+      loadState();
+      updateDateDisplay();
     }
 
-    function saveState(state) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
-
-    const state = loadState();
-
-    // Set readable date
-    const today = new Date();
-    document.getElementById('currentDateDisplay').innerText = today.toLocaleDateString('en-US', {
-      weekday: 'long', month: 'short', day: 'numeric'
-    });
-
-    // Restore text inputs
-    document.querySelectorAll('input[type="text"], textarea').forEach(el => {
-      const key = el.id || el.dataset.time;
-      if (key && state.textFields[key]) {
-        el.value = state.textFields[key];
-      }
-      el.addEventListener('input', () => {
-        state.textFields[key] = el.value;
-        saveState(state);
+    // View Switching
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.view-content').forEach(v => v.classList.remove('active'));
+        btn.classList.add('active');
+        currentView = btn.dataset.view;
+        document.getElementById(`${currentView}-view`).classList.add('active');
+        updateDateDisplay();
       });
     });
 
-    // Checkbox toggles
+    // Date Navigation
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (currentView === 'daily') {
+        currentDate.setDate(currentDate.getDate() - 1);
+      } else if (currentView === 'weekly') {
+        currentDate.setDate(currentDate.getDate() - 7);
+      } else if (currentView === 'monthly') {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+      }
+      updateDateDisplay();
+      loadState();
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (currentView === 'daily') {
+        currentDate.setDate(currentDate.getDate() + 1);
+      } else if (currentView === 'weekly') {
+        currentDate.setDate(currentDate.getDate() + 7);
+      } else if (currentView === 'monthly') {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+      }
+      updateDateDisplay();
+      loadState();
+    });
+
+    function updateDateDisplay() {
+      const display = document.getElementById('dateDisplay');
+      if (currentView === 'daily') {
+        display.innerText = currentDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      } else if (currentView === 'weekly') {
+        const weekStart = new Date(currentDate);
+        weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekEnd.getDate() + 6);
+        display.innerText = `${weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${weekEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+      } else if (currentView === 'monthly') {
+        display.innerText = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+        document.getElementById('monthYearDisplay').innerText = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      }
+    }
+
+    // Render Daily
+    function renderDaily() {
+      const scheduleContainer = document.getElementById('scheduleBlocks');
+      const hours = ['8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM'];
+      
+      if (scheduleContainer.children.length === 0) {
+        hours.forEach(time => {
+          const timeLabel = document.createElement('div');
+          timeLabel.className = 'time-slot';
+          timeLabel.innerText = time;
+
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'block-input';
+          input.dataset.time = time;
+
+          scheduleContainer.appendChild(timeLabel);
+          scheduleContainer.appendChild(input);
+        });
+      }
+    }
+
+    // Render Weekly
+    function renderWeekly() {
+      const weeklyGrid = document.getElementById('weeklyGrid');
+      weeklyGrid.innerHTML = '';
+      
+      const weekStart = new Date(currentDate);
+      weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+
+      for (let i = 0; i < 7; i++) {
+        const day = new Date(weekStart);
+        day.setDate(day.getDate() + i);
+        
+        const dayBox = document.createElement('div');
+        dayBox.className = 'day-box';
+        
+        const isSameDay = day.toDateString() === currentDate.toDateString();
+        if (isSameDay) dayBox.classList.add('active');
+        
+        dayBox.innerHTML = `
+          <div class="day-label">${day.toLocaleDateString('en-US', { weekday: 'short' })}</div>
+          <div class="day-date">${day.getDate()}</div>
+        `;
+        
+        dayBox.addEventListener('click', () => {
+          currentDate = new Date(day);
+          document.querySelectorAll('.view-btn[data-view="daily"]')[0].click();
+          updateDateDisplay();
+        });
+        
+        weeklyGrid.appendChild(dayBox);
+      }
+    }
+
+    // Render Monthly
+    function renderMonthly() {
+      const monthCalendar = document.getElementById('monthCalendar');
+      monthCalendar.innerHTML = '';
+      
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      days.forEach(day => {
+        const header = document.createElement('div');
+        header.className = 'calendar-header';
+        header.innerText = day;
+        monthCalendar.appendChild(header);
+      });
+
+      const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+      const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+      const startDate = new Date(firstDay);
+      startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+      let date = new Date(startDate);
+      for (let i = 0; i < 42; i++) {
+        const dayEl = document.createElement('div');
+        dayEl.className = 'calendar-day';
+        
+        if (date.getMonth() !== currentDate.getMonth()) {
+          dayEl.classList.add('other-month');
+        }
+        
+        if (date.toDateString() === currentDate.toDateString()) {
+          dayEl.classList.add('active');
+        }
+        
+        dayEl.innerText = date.getDate();
+        dayEl.addEventListener('click', () => {
+          currentDate = new Date(date);
+          document.querySelectorAll('.view-btn[data-view="daily"]')[0].click();
+          updateDateDisplay();
+        });
+        
+        monthCalendar.appendChild(dayEl);
+        date.setDate(date.getDate() + 1);
+      }
+    }
+
+    // State Management
+    function getStorageKey() {
+      return `${STORAGE_KEY}_${currentDate.toDateString()}`;
+    }
+
+    function loadState() {
+      const raw = localStorage.getItem(getStorageKey());
+      const state = raw ? JSON.parse(raw) : { textFields: {}, checkBoxes: {}, energy: null };
+      
+      document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+        const key = el.id || el.dataset.time;
+        if (key && state.textFields[key]) {
+          el.value = state.textFields[key];
+        }
+      });
+
+      document.querySelectorAll('.custom-check').forEach(box => {
+        if (state.checkBoxes[box.dataset.id]) {
+          box.classList.add('checked');
+          const siblingInput = box.parentElement.querySelector('.task-input');
+          if (siblingInput) siblingInput.classList.add('completed');
+        }
+      });
+
+      if (state.energy) {
+        document.querySelector(`[data-level="${state.energy}"]`)?.classList.add('active');
+      }
+
+      updateHabitProgress();
+    }
+
+    function saveState() {
+      const state = { textFields: {}, checkBoxes: {}, energy: null };
+      
+      document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+        const key = el.id || el.dataset.time;
+        if (key) state.textFields[key] = el.value;
+      });
+
+      document.querySelectorAll('.custom-check').forEach(box => {
+        state.checkBoxes[box.dataset.id] = box.classList.contains('checked');
+      });
+
+      const activeEnergy = document.querySelector('.energy-btn.active');
+      if (activeEnergy) state.energy = activeEnergy.dataset.level;
+
+      localStorage.setItem(getStorageKey(), JSON.stringify(state));
+    }
+
+    function setupEventListeners() {
+      document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+        el.addEventListener('input', saveState);
+      });
+
+      document.querySelectorAll('.custom-check').forEach(box => {
+        box.addEventListener('click', () => {
+          const isChecked = box.classList.toggle('checked');
+          const siblingInput = box.parentElement.querySelector('.task-input');
+          if (siblingInput) siblingInput.classList.toggle('completed', isChecked);
+          saveState();
+          updateHabitProgress();
+        });
+      });
+
+      document.querySelectorAll('.energy-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.energy-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          saveState();
+        });
+      });
+
+      document.getElementById('resetTodayBtn').addEventListener('click', () => {
+        document.querySelectorAll('.custom-check').forEach(b => {
+          b.classList.remove('checked');
+          const sibling = b.parentElement.querySelector('.task-input');
+          if (sibling) sibling.classList.remove('completed');
+        });
+        saveState();
+        updateHabitProgress();
+      });
+
+      document.getElementById('clearAllBtn').addEventListener('click', () => {
+        if (confirm('Start fresh? This will clear all data for today.')) {
+          localStorage.removeItem(getStorageKey());
+          location.reload();
+        }
+      });
+    }
+
     function updateHabitProgress() {
       const habitBoxes = document.querySelectorAll('.habit-check');
       const total = habitBoxes.length;
@@ -470,62 +923,14 @@
       habitBoxes.forEach(b => {
         if (b.classList.contains('checked')) checked++;
       });
-      document.getElementById('habitProgressText').innerText = `${checked}/${total}`;
-      document.getElementById('habitProgressFill').style.width = `${(checked / total) * 100}%`;
+      const progressText = document.getElementById('habitProgressText');
+      if (progressText) {
+        progressText.innerText = `${checked}/${total}`;
+        document.getElementById('habitProgressFill').style.width = `${(checked / total) * 100}%`;
+      }
     }
 
-    document.querySelectorAll('.custom-check').forEach(box => {
-      const id = box.dataset.id;
-      if (state.checkBoxes[id]) {
-        box.classList.add('checked');
-        const siblingInput = box.parentElement.querySelector('.task-input');
-        if (siblingInput) siblingInput.classList.add('completed');
-      }
-
-      box.addEventListener('click', () => {
-        const isChecked = box.classList.toggle('checked');
-        state.checkBoxes[id] = isChecked;
-        const siblingInput = box.parentElement.querySelector('.task-input');
-        if (siblingInput) siblingInput.classList.toggle('completed', isChecked);
-        saveState(state);
-        updateHabitProgress();
-      });
-    });
-    updateHabitProgress();
-
-    // Energy Selector
-    const energyButtons = document.querySelectorAll('.energy-btn');
-    if (state.energy) {
-      document.querySelector(`[data-level="${state.energy}"]`)?.classList.add('active');
-    }
-
-    energyButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        energyButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        state.energy = btn.dataset.level;
-        saveState(state);
-      });
-    });
-
-    // Reset controls
-    document.getElementById('resetTodayBtn').addEventListener('click', () => {
-      document.querySelectorAll('.custom-check').forEach(b => {
-        b.classList.remove('checked');
-        state.checkBoxes[b.dataset.id] = false;
-        const sibling = b.parentElement.querySelector('.task-input');
-        if (sibling) sibling.classList.remove('completed');
-      });
-      saveState(state);
-      updateHabitProgress();
-    });
-
-    document.getElementById('clearAllBtn').addEventListener('click', () => {
-      if (confirm('Start a fresh page for today?')) {
-        localStorage.removeItem(STORAGE_KEY);
-        location.reload();
-      }
-    });
+    init();
   </script>
 </body>
 </html>
