@@ -198,62 +198,48 @@
 
     .month-header.nov { background: var(--rose); color: #83555d; }
     .month-header.dec { background: var(--sky); color: #46678f; }
-    .month-header.jan { background: var(--lavender); color: #655383; }
-    .month-header.feb { background: var(--peach); color: #8b624f; }
+    .month-header.jan { background: var(--lavender); color: #7e5ba4; }
+    .month-header.feb { background: var(--rose); color: #83555d; }
     .month-header.mar { background: var(--sage); color: #446d60; }
-    .month-header.apr { background: var(--rose); color: #83555d; }
-    .month-header.may { background: var(--lavender); color: #655383; }
-    .month-header.jun { background: var(--peach); color: #8b624f; }
-    .month-header.jul { background: var(--sage); color: #446d60; }
-    .month-header.aug { background: var(--rose); color: #83555d; }
-    .month-header.sep { background: var(--sky); color: #46678f; }
-    .month-header.oct { background: var(--lavender); color: #655383; }
+    .month-header.apr { background: var(--peach); color: #b87b5b; }
+    .month-header.may { background: var(--lavender); color: #7e5ba4; }
+    .month-header.jun { background: var(--sky); color: #46678f; }
+    .month-header.jul { background: var(--rose); color: #83555d; }
+    .month-header.aug { background: var(--sage); color: #446d60; }
+    .month-header.sep { background: var(--peach); color: #b87b5b; }
+    .month-header.oct { background: var(--lavender); color: #7e5ba4; }
 
-    .mini-grid {
+    .month-days {
+      padding: 8px;
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 4px;
-      padding: 10px 10px 14px;
-    }
-
-    .mini-head {
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-align: center;
-      font-weight: 700;
-      color: var(--muted);
-      padding: 4px 0 6px;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
     }
 
     .mini-day {
-      position: relative;
       aspect-ratio: 1;
       border-radius: 8px;
+      background: var(--paper-alt);
+      border: 1px solid var(--line);
       display: flex;
-      font-size: 0.73rem;
-      font-weight: 700;
       align-items: center;
       justify-content: center;
-      background: var(--paper-alt);
-      color: var(--ink);
-      border: 1px solid transparent;
+      font-size: 0.65rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: all .18s ease;
+      transition: all .15s ease;
+      position: relative;
+      color: var(--ink);
     }
 
     .mini-day:hover {
-      border-color: rgba(155,126,182,.45);
-      transform: translateY(-1px);
+      background: var(--sky);
+      border-color: var(--sky-deep);
     }
 
     .mini-day.other-month {
-      opacity: .35;
-    }
-
-    .mini-day.today {
-      background: linear-gradient(135deg, var(--rose), var(--peach));
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,.05);
+      opacity: 0.35;
+      cursor: default;
     }
 
     .mini-day.has-event::after {
@@ -268,198 +254,91 @@
       transform: translateX(-50%);
     }
 
-    .daily-header {
+    .daily-container {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .date-pill {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--paper-alt);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .date-pill button {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      color: var(--ink);
-      font-size: 1rem;
-      padding: 2px 6px;
-    }
-
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    .column {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .daily-date-picker {
+      flex: 1;
+      min-width: 280px;
     }
 
     .card {
       background: var(--paper);
       border: 1px solid var(--line);
       border-radius: 18px;
+      box-shadow: 0 12px 18px var(--shadow);
       overflow: hidden;
-      box-shadow: 0 10px 18px var(--shadow);
+      flex: 1;
+      min-width: 280px;
     }
 
     .card-header {
-      padding: 11px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.76rem;
-      letter-spacing: 0.12em;
+      padding: 14px 16px;
+      font-size: 0.8rem;
+      letter-spacing: .12em;
       text-transform: uppercase;
       font-weight: 800;
+      border-bottom: 1px solid var(--line);
+      background: var(--sky);
+      color: #46678f;
     }
 
     .card-header.rose { background: var(--rose); color: #83555d; }
-    .card-header.purple { background: var(--lavender); color: #655383; }
-    .card-header.green { background: var(--sage); color: #446d60; }
-    .card-header.peach { background: var(--peach); color: #8b624f; }
+    .card-header.lavender { background: var(--lavender); color: #7e5ba4; }
+    .card-header.sage { background: var(--sage); color: #446d60; }
+    .card-header.peach { background: var(--peach); color: #b87b5b; }
     .card-header.sky { background: var(--sky); color: #46678f; }
 
     .card-body {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      padding: 16px;
     }
 
-    textarea, input[type="text"], select {
-      width: 100%;
-      border: 1px solid transparent;
-      background: var(--paper-alt);
-      border-radius: 10px;
+    .todo-form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .todo-form input {
       padding: 10px 12px;
-      color: var(--ink);
-      outline: none;
-      font: inherit;
-      resize: vertical;
-      transition: border-color .2s ease, box-shadow .2s ease;
-    }
-
-    textarea:focus, input[type="text"]:focus, select:focus {
-      border-color: rgba(155,126,182,.5);
-      box-shadow: 0 0 0 3px rgba(155,126,182,.08);
-      background: #fff;
-    }
-
-    .task-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .checkbox {
-      width: 22px;
-      height: 22px;
-      border-radius: 7px;
-      border: 2px solid var(--lavender-deep);
-      background: #fff;
-      position: relative;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .checkbox.checked {
-      background: var(--lavender-deep);
-      border-color: var(--lavender-deep);
-    }
-
-    .checkbox.checked::after {
-      content: '✓';
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      font-size: 13px;
-      color: #fff;
-      font-weight: 800;
-    }
-
-    .task-input {
-      border: none;
-      border-bottom: 1px dashed var(--line);
-      background: transparent;
-      border-radius: 0;
-      padding: 5px 2px;
-    }
-
-    .task-input.completed {
-      text-decoration: line-through;
-      color: var(--muted);
-    }
-
-    .progress-wrap {
-      width: 100%;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--paper-alt);
-      overflow: hidden;
       border: 1px solid var(--line);
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, var(--sage-deep), var(--success));
-      transition: width .25s ease;
-    }
-
-    .schedule-grid {
-      display: grid;
-      grid-template-columns: 52px 1fr;
-      gap: 8px 8px;
-      max-height: 450px;
-      overflow-y: auto;
-      padding-right: 4px;
-    }
-
-    .time-slot {
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: var(--muted);
-      align-self: center;
-      text-align: right;
-      padding-right: 4px;
-    }
-
-    .block-input {
+      border-radius: 10px;
       background: var(--paper-alt);
-      border: 1px solid transparent;
-      border-radius: 8px;
-      padding: 7px 8px;
-      font-size: 0.85rem;
       font-family: inherit;
-      outline: none;
+      font-size: 0.9rem;
+      color: var(--ink);
     }
 
-    .block-input:focus {
-      border-color: rgba(155,126,182,.5);
-      box-shadow: 0 0 0 3px rgba(155,126,182,.08);
-      background: #fff;
+    .todo-form input::placeholder {
+      color: var(--muted);
     }
 
     .event-form {
-      display: grid;
+      display: flex;
+      flex-direction: column;
       gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .event-form input,
+    .event-form select {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--paper-alt);
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .event-form input::placeholder {
+      color: var(--muted);
     }
 
     .event-controls {
@@ -468,7 +347,7 @@
       gap: 8px;
     }
 
-    .event-btn {
+    .btn, .event-btn {
       border: 1px solid var(--line);
       border-radius: 10px;
       background: var(--paper-alt);
@@ -477,6 +356,56 @@
       font-weight: 700;
       color: var(--ink);
       cursor: pointer;
+      transition: all .15s ease;
+      font-size: 0.85rem;
+    }
+
+    .btn:hover, .event-btn:hover {
+      background: var(--sky);
+      border-color: var(--sky-deep);
+    }
+
+    .todo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--paper-alt);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .todo-text {
+      flex: 1;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .todo-text.done {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .todo-checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: var(--danger);
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 2px 4px;
     }
 
     .event-list {
@@ -517,6 +446,7 @@
       font-weight: 800;
       background: var(--sky);
       color: #46678f;
+      flex-shrink: 0;
     }
 
     .tag.appointment { background: var(--sky); color: #46678f; }
@@ -539,32 +469,14 @@
       font-size: 1rem;
       line-height: 1;
       padding: 2px 4px;
+      flex-shrink: 0;
     }
 
-    .actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      padding-top: 14px;
-    }
-
-    .ghost-btn {
-      border: none;
-      background: transparent;
-      cursor: pointer;
+    .empty-state {
+      padding: 10px 0;
       color: var(--muted);
-      text-decoration: underline;
-      font-family: inherit;
-      font-size: 0.8rem;
-    }
-
-    @media (max-width: 900px) {
-      .dashboard-grid { grid-template-columns: 1fr; }
-      .topbar { align-items: flex-start; }
-      .header-actions { width: 100%; }
-      .segmented { width: 100%; justify-content: center; }
-      .daily-header { align-items: flex-start; }
-      .event-controls { grid-template-columns: 1fr; }
+      font-size: 0.9rem;
+      text-align: center;
     }
   </style>
 </head>
@@ -572,143 +484,61 @@
   <div class="planner-shell">
     <div class="topbar">
       <div class="title-block">
-        <div class="eyebrow">Executive planning system</div>
+        <div class="eyebrow">2026–2027</div>
         <h1>ADHD Planner</h1>
       </div>
-
       <div class="header-actions">
         <div class="segmented">
-          <button class="segment active" data-view="year">Year at a Glance</button>
+          <button class="segment active" data-view="year">Year</button>
           <button class="segment" data-view="daily">Daily</button>
         </div>
       </div>
     </div>
 
+    <!-- Year View -->
     <div id="year-view" class="view active">
       <div class="year-legend">
-        <span><span class="legend-dot" style="background: var(--rose);"></span> focus</span>
-        <span><span class="legend-dot" style="background: var(--sage);"></span> rhythm</span>
-        <span><span class="legend-dot" style="background: var(--lavender);"></span> projects</span>
-        <span><span class="legend-dot" style="background: var(--sky);"></span> events</span>
+        <span><span class="legend-dot" style="background: var(--rose);"></span> Birthdays</span>
+        <span><span class="legend-dot" style="background: var(--sky);"></span> Appointments</span>
+        <span><span class="legend-dot" style="background: var(--sage);"></span> Events</span>
       </div>
-      <div class="year-selector" style="display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap;">
-        <button class="segment active" data-year="2026" style="background: var(--paper); box-shadow: 0 4px 12px rgba(58,49,42,.06);">2026</button>
-        <button class="segment" data-year="2027">2027</button>
-      </div>
-      <div class="year-grid" id="yearGrid"></div>
+      <div class="year-grid" id="year-grid"></div>
     </div>
 
+    <!-- Daily View -->
     <div id="daily-view" class="view">
-      <div class="daily-header">
-        <div class="date-pill">
-          <button id="prevBtn">◀</button>
-          <span id="dateDisplay">Today</span>
-          <button id="nextBtn">▶</button>
-        </div>
-
-        <div class="pill">
-          <span>Energy:</span>
-          <button class="energy-btn" data-level="low" title="Low">🔋</button>
-          <button class="energy-btn" data-level="med" title="Medium">⚡</button>
-          <button class="energy-btn" data-level="high" title="High">✨</button>
-        </div>
-      </div>
-
-      <div class="dashboard-grid">
-        <div class="column">
+      <div class="daily-container">
+        <!-- Date Picker -->
+        <div class="daily-date-picker">
           <div class="card">
-            <div class="card-header rose">Big win</div>
+            <div class="card-header">Select Date</div>
             <div class="card-body">
-              <textarea id="mainFocus" rows="2" placeholder="If I only accomplish one thing today..."></textarea>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header purple">Essential 3</div>
-            <div class="card-body">
-              <div class="task-row">
-                <div class="checkbox" data-id="top1"></div>
-                <input type="text" class="task-input" id="top1-text" placeholder="Priority #1" />
+              <div id="date-picker-mini" class="month-card">
+                <div class="month-header" id="picker-month-name"></div>
+                <div class="month-days" id="picker-days"></div>
               </div>
-              <div class="task-row">
-                <div class="checkbox" data-id="top2"></div>
-                <input type="text" class="task-input" id="top2-text" placeholder="Priority #2" />
-              </div>
-              <div class="task-row">
-                <div class="checkbox" data-id="top3"></div>
-                <input type="text" class="task-input" id="top3-text" placeholder="Priority #3" />
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header peach">Backlog</div>
-            <div class="card-body">
-              <div class="task-row">
-                <div class="checkbox" data-id="extra1"></div>
-                <input type="text" class="task-input" id="extra1-text" placeholder="If time allows..." />
-              </div>
-              <div class="task-row">
-                <div class="checkbox" data-id="extra2"></div>
-                <input type="text" class="task-input" id="extra2-text" placeholder="If time allows..." />
-              </div>
-              <div class="task-row">
-                <div class="checkbox" data-id="extra3"></div>
-                <input type="text" class="task-input" id="extra3-text" placeholder="If time allows..." />
+              <div style="margin-top: 14px;">
+                <button class="btn" id="today-btn" style="width: 100%;">Today</button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="column">
-          <div class="card" style="height: 100%;">
-            <div class="card-header sky">Time blocks</div>
+        <!-- Daily Content -->
+        <div>
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-header sky" id="current-date-header">December 9, 2026</div>
             <div class="card-body">
-              <div class="schedule-grid" id="scheduleBlocks"></div>
+              <div class="todo-form">
+                <input id="todo-input" type="text" placeholder="Add a task..." />
+                <button class="btn" id="add-todo-btn">Add</button>
+              </div>
+              <div class="todo-list" id="todo-list"></div>
             </div>
           </div>
-        </div>
 
-        <div class="column">
           <div class="card">
-            <div class="card-header green">
-              <span>Dopamine anchors</span>
-              <span id="habitProgressText" style="font-size: 0.74rem; letter-spacing:0; text-transform:none;">0/4</span>
-            </div>
-            <div class="card-body">
-              <div class="progress-wrap"><div class="progress-fill" id="habitProgressFill"></div></div>
-              <div class="task-row">
-                <div class="checkbox habit-check" data-id="water"></div>
-                <span style="font-size:0.88rem;">Hydrate</span>
-              </div>
-              <div class="task-row">
-                <div class="checkbox habit-check" data-id="movement"></div>
-                <span style="font-size:0.88rem;">Walk / sunlight</span>
-              </div>
-              <div class="task-row">
-                <div class="checkbox habit-check" data-id="meds"></div>
-                <span style="font-size:0.88rem;">Meds</span>
-              </div>
-              <div class="task-row">
-                <div class="checkbox habit-check" data-id="reset"></div>
-                <span style="font-size:0.88rem;">Desk reset</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" style="flex:1;">
-            <div class="card-header purple">Brain dump</div>
-            <div class="card-body">
-              <textarea id="brainDump" rows="8" placeholder="List random thoughts, worries, appointments, errands..."></textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="dashboard-grid" style="margin-top:20px;">
-        <div class="column" style="grid-column: 1 / -1;">
-          <div class="card">
-            <div class="card-header sky">Appointments & events</div>
+            <div class="card-header sky">Appointments & Events</div>
             <div class="card-body">
               <div class="event-form">
                 <input id="eventTitle" type="text" placeholder="Add appointment, birthday, or event" />
@@ -718,8 +548,7 @@
                     <option value="birthday">Birthday</option>
                     <option value="event">Event</option>
                   </select>
-                  <button class="event-btn" id="addEventBtn" type="button">Save event</button>
-                  <button class="event-btn" id="loadTodayBtn" type="button" style="background: var(--paper);">Today</button>
+                  <button class="event-btn" id="addEventBtn" type="button">Save</button>
                 </div>
               </div>
               <div id="eventList" class="event-list"></div>
@@ -728,37 +557,15 @@
         </div>
       </div>
     </div>
-
-    <div class="actions">
-      <button class="ghost-btn" id="resetTodayBtn">Clear checks</button>
-      <button class="ghost-btn" id="clearAllBtn" style="color: #b86969;">Reset</button>
-    </div>
   </div>
 
   <script>
-    const STORAGE_KEY = 'adhd_planner_2026_2027';
+    let currentDate = new Date();
+
+    const TODOS_KEY = 'adhd_planner_todos_v1';
     const EVENTS_KEY = 'adhd_planner_events_v1';
-    let currentDate = new Date(2026, 10, 1);
-    let selectedYear = 2026;
-    let currentView = 'year';
 
-    const monthMeta = [
-      { name: 'November', key: 'nov', year: 2026 },
-      { name: 'December', key: 'dec', year: 2026 },
-      { name: 'January', key: 'jan', year: 2027 },
-      { name: 'February', key: 'feb', year: 2027 },
-      { name: 'March', key: 'mar', year: 2027 },
-      { name: 'April', key: 'apr', year: 2027 },
-      { name: 'May', key: 'may', year: 2027 },
-      { name: 'June', key: 'jun', year: 2027 },
-      { name: 'July', key: 'jul', year: 2027 },
-      { name: 'August', key: 'aug', year: 2027 },
-      { name: 'September', key: 'sep', year: 2027 },
-      { name: 'October', key: 'oct', year: 2027 },
-      { name: 'November', key: 'nov', year: 2027 },
-      { name: 'December', key: 'dec', year: 2027 }
-    ];
-
+    // ===== EVENTS LOGIC =====
     function formatDateKey(date) {
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -767,110 +574,15 @@
     }
 
     function getEvents() {
-      try { return JSON.parse(localStorage.getItem(EVENTS_KEY) || '{}'); }
-      catch { return {}; }
+      try {
+        return JSON.parse(localStorage.getItem(EVENTS_KEY) || '{}');
+      } catch {
+        return {};
+      }
     }
 
     function saveEvents(events) {
       localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
-    }
-
-    function init() {
-      renderYearOverview();
-      renderDaily();
-      bindEvents();
-      loadState();
-      renderEventList();
-      updateDateDisplay();
-      renderYearOverview();
-    }
-
-    function bindEvents() {
-      document.querySelectorAll('.segment[data-view]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const view = btn.dataset.view;
-          document.querySelectorAll('.segment[data-view]').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          document.getElementById('year-view').classList.toggle('active', view === 'year');
-          document.getElementById('daily-view').classList.toggle('active', view === 'daily');
-          currentView = view;
-          if (view === 'daily') {
-            updateDateDisplay();
-            renderEventList();
-          }
-        });
-      });
-
-      document.querySelectorAll('.segment[data-year]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.segment[data-year]').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          selectedYear = Number(btn.dataset.year);
-          renderYearOverview();
-        });
-      });
-
-      document.getElementById('prevBtn').addEventListener('click', () => {
-        currentDate.setDate(currentDate.getDate() - 1);
-        updateDateDisplay();
-        renderEventList();
-        loadState();
-      });
-
-      document.getElementById('nextBtn').addEventListener('click', () => {
-        currentDate.setDate(currentDate.getDate() + 1);
-        updateDateDisplay();
-        renderEventList();
-        loadState();
-      });
-
-      document.getElementById('addEventBtn').addEventListener('click', addEvent);
-      document.getElementById('loadTodayBtn').addEventListener('click', () => {
-        currentDate = new Date();
-        updateDateDisplay();
-        renderEventList();
-        loadState();
-      });
-
-      document.querySelectorAll('.energy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.energy-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          saveState();
-        });
-      });
-
-      document.querySelectorAll('input[type="text"], textarea, select').forEach(el => {
-        el.addEventListener('input', saveState);
-        el.addEventListener('change', saveState);
-      });
-
-      document.querySelectorAll('.checkbox').forEach(box => {
-        box.addEventListener('click', () => {
-          const isChecked = box.classList.toggle('checked');
-          const sibling = box.parentElement.querySelector('.task-input');
-          if (sibling) sibling.classList.toggle('completed', isChecked);
-          saveState();
-          updateHabitProgress();
-        });
-      });
-
-      document.getElementById('resetTodayBtn').addEventListener('click', () => {
-        document.querySelectorAll('.checkbox').forEach(b => {
-          b.classList.remove('checked');
-          const sibling = b.parentElement.querySelector('.task-input');
-          if (sibling) sibling.classList.remove('completed');
-        });
-        saveState();
-        updateHabitProgress();
-      });
-
-      document.getElementById('clearAllBtn').addEventListener('click', () => {
-        if (confirm('Clear planner data for this day?')) {
-          localStorage.removeItem(getStorageKey());
-          location.reload();
-        }
-      });
     }
 
     function addEvent() {
@@ -889,6 +601,7 @@
       });
       events[key] = list;
       saveEvents(events);
+
       titleInput.value = '';
       renderEventList();
       renderYearOverview();
@@ -902,8 +615,7 @@
 
       if (events.length === 0) {
         const empty = document.createElement('div');
-        empty.style.padding = '10px 0';
-        empty.style.color = 'var(--muted)';
+        empty.className = 'empty-state';
         empty.textContent = 'No appointments or events saved for this date.';
         listEl.appendChild(empty);
         return;
@@ -946,148 +658,252 @@
       });
     }
 
-    function renderYearOverview() {
-      const grid = document.getElementById('yearGrid');
-      grid.innerHTML = '';
-
-      const months = monthMeta.filter(m => m.year === selectedYear);
-      const allEvents = getEvents();
-
-      months.forEach(month => {
-        const monthCard = document.createElement('div');
-        monthCard.className = 'month-card';
-
-        const header = document.createElement('div');
-        header.className = `month-header ${month.key}`;
-        header.textContent = `${month.name} ${month.year}`;
-
-        const miniGrid = document.createElement('div');
-        miniGrid.className = 'mini-grid';
-
-        ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(day => {
-          const label = document.createElement('div');
-          label.className = 'mini-head';
-          label.textContent = day;
-          miniGrid.appendChild(label);
-        });
-
-        const firstDay = new Date(month.year, new Date(`${month.name} 1, ${month.year}`).getMonth(), 1);
-        const startDate = new Date(firstDay);
-        startDate.setDate(startDate.getDate() - firstDay.getDay());
-
-        let date = new Date(startDate);
-        for (let i = 0; i < 42; i++) {
-          const cell = document.createElement('button');
-          cell.type = 'button';
-          cell.className = 'mini-day';
-          if (date.getMonth() !== firstDay.getMonth()) cell.classList.add('other-month');
-          if (date.toDateString() === new Date().toDateString()) cell.classList.add('today');
-          if (allEvents[formatDateKey(date)] && allEvents[formatDateKey(date)].length) cell.classList.add('has-event');
-          cell.textContent = date.getDate();
-          cell.addEventListener('click', () => {
-            currentDate = new Date(date);
-            document.querySelectorAll('.segment[data-view="year"]').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.segment[data-view="daily"]').forEach(b => b.classList.add('active'));
-            document.getElementById('year-view').classList.remove('active');
-            document.getElementById('daily-view').classList.add('active');
-            currentView = 'daily';
-            updateDateDisplay();
-            renderEventList();
-            loadState();
-          });
-          miniGrid.appendChild(cell);
-          date.setDate(date.getDate() + 1);
-        }
-
-        monthCard.appendChild(header);
-        monthCard.appendChild(miniGrid);
-        grid.appendChild(monthCard);
-      });
+    // ===== TODOS LOGIC =====
+    function getTodos() {
+      try {
+        return JSON.parse(localStorage.getItem(TODOS_KEY) || '{}');
+      } catch {
+        return {};
+      }
     }
 
-    function renderDaily() {
-      const container = document.getElementById('scheduleBlocks');
-      if (container.children.length > 0) return;
-      const blocks = ['8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM'];
-      blocks.forEach(block => {
-        const timeLabel = document.createElement('div');
-        timeLabel.className = 'time-slot';
-        timeLabel.textContent = block;
-
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'block-input';
-        input.dataset.time = block;
-
-        container.appendChild(timeLabel);
-        container.appendChild(input);
-      });
+    function saveTodos(todos) {
+      localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
     }
 
-    function updateDateDisplay() {
-      document.getElementById('dateDisplay').textContent = currentDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    function addTodo() {
+      const input = document.getElementById('todo-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const todos = getTodos();
+      const key = formatDateKey(currentDate);
+      const list = todos[key] || [];
+      list.push({
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        text,
+        done: false
+      });
+      todos[key] = list;
+      saveTodos(todos);
+
+      input.value = '';
+      renderTodoList();
     }
 
-    function getStorageKey() {
-      return `${STORAGE_KEY}_${currentDate.toDateString()}`;
-    }
+    function renderTodoList() {
+      const listEl = document.getElementById('todo-list');
+      const key = formatDateKey(currentDate);
+      const todos = getTodos()[key] || [];
+      listEl.innerHTML = '';
 
-    function loadState() {
-      const raw = localStorage.getItem(getStorageKey());
-      const state = raw ? JSON.parse(raw) : { textFields: {}, checkBoxes: {}, energy: null };
-
-      document.querySelectorAll('input[type="text"], textarea').forEach(el => {
-        const key = el.id || el.dataset.time;
-        if (key && state.textFields[key] !== undefined) el.value = state.textFields[key];
-      });
-
-      document.querySelectorAll('.checkbox').forEach(box => {
-        if (state.checkBoxes[box.dataset.id]) {
-          box.classList.add('checked');
-          const sibling = box.parentElement.querySelector('.task-input');
-          if (sibling) sibling.classList.add('completed');
-        }
-      });
-
-      const energyEls = document.querySelectorAll('.energy-btn');
-      energyEls.forEach(btn => btn.classList.remove('active'));
-      if (state.energy) {
-        const active = document.querySelector(`.energy-btn[data-level="${state.energy}"]`);
-        if (active) active.classList.add('active');
+      if (todos.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'empty-state';
+        empty.textContent = 'No tasks added yet.';
+        listEl.appendChild(empty);
+        return;
       }
 
-      updateHabitProgress();
+      todos.forEach(todo => {
+        const item = document.createElement('div');
+        item.className = 'todo-item';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'todo-checkbox';
+        checkbox.checked = todo.done;
+        checkbox.addEventListener('change', () => {
+          const current = getTodos();
+          const t = current[key].find(x => x.id === todo.id);
+          if (t) t.done = !t.done;
+          saveTodos(current);
+          renderTodoList();
+        });
+
+        const text = document.createElement('div');
+        text.className = `todo-text ${todo.done ? 'done' : ''}`;
+        text.textContent = todo.text;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-btn';
+        removeBtn.textContent = '×';
+        removeBtn.addEventListener('click', () => {
+          const current = getTodos();
+          current[key] = current[key].filter(x => x.id !== todo.id);
+          if (current[key].length === 0) delete current[key];
+          saveTodos(current);
+          renderTodoList();
+        });
+
+        item.appendChild(checkbox);
+        item.appendChild(text);
+        item.appendChild(removeBtn);
+        listEl.appendChild(item);
+      });
     }
 
-    function saveState() {
-      const state = { textFields: {}, checkBoxes: {}, energy: null };
-
-      document.querySelectorAll('input[type="text"], textarea').forEach(el => {
-        const key = el.id || el.dataset.time;
-        if (key) state.textFields[key] = el.value;
-      });
-
-      document.querySelectorAll('.checkbox').forEach(box => {
-        state.checkBoxes[box.dataset.id] = box.classList.contains('checked');
-      });
-
-      const activeEnergy = document.querySelector('.energy-btn.active');
-      if (activeEnergy) state.energy = activeEnergy.dataset.level;
-
-      localStorage.setItem(getStorageKey(), JSON.stringify(state));
+    // ===== DATE & CALENDAR LOGIC =====
+    function updateDateDisplay() {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateStr = currentDate.toLocaleDateString('en-US', options);
+      document.getElementById('current-date-header').textContent = dateStr;
     }
 
-    function updateHabitProgress() {
-      const boxes = document.querySelectorAll('.habit-check');
-      let checked = 0;
-      boxes.forEach(box => {
-        if (box.classList.contains('checked')) checked++;
-      });
-      const total = boxes.length || 1;
-      const fill = document.getElementById('habitProgressFill');
-      const text = document.getElementById('habitProgressText');
-      if (fill) fill.style.width = `${(checked / total) * 100}%`;
-      if (text) text.textContent = `${checked}/${total}`;
+    function renderYearOverview() {
+      const grid = document.getElementById('year-grid');
+      grid.innerHTML = '';
+
+      const allEvents = getEvents();
+
+      for (let m = 10; m < 12; m++) {
+        const date = new Date(2026, m, 1);
+        renderMonth(date, grid, allEvents);
+      }
+      for (let m = 0; m < 10; m++) {
+        const date = new Date(2027, m, 1);
+        renderMonth(date, grid, allEvents);
+      }
+    }
+
+    function renderMonth(date, container, allEvents) {
+      const card = document.createElement('div');
+      card.className = 'month-card';
+
+      const monthNames = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+      const monthName = monthNames[date.getMonth()];
+      const header = document.createElement('div');
+      header.className = `month-header ${monthName}`;
+      header.textContent = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      card.appendChild(header);
+
+      const daysContainer = document.createElement('div');
+      daysContainer.className = 'month-days';
+
+      const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+      const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      const startDate = new Date(firstDay);
+      startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+      for (let i = 0; i < 42; i++) {
+        const cellDate = new Date(startDate);
+        cellDate.setDate(cellDate.getDate() + i);
+
+        const dayCell = document.createElement('div');
+        dayCell.className = 'mini-day';
+
+        if (cellDate.getMonth() !== date.getMonth()) {
+          dayCell.classList.add('other-month');
+        } else {
+          dayCell.style.cursor = 'pointer';
+          dayCell.addEventListener('click', () => {
+            currentDate = new Date(cellDate);
+            updateDateDisplay();
+            renderTodoList();
+            renderEventList();
+            switchView('daily');
+          });
+        }
+
+        const dateKey = formatDateKey(cellDate);
+        if (allEvents[dateKey] && allEvents[dateKey].length) {
+          dayCell.classList.add('has-event');
+        }
+
+        dayCell.textContent = cellDate.getDate();
+        daysContainer.appendChild(dayCell);
+      }
+
+      card.appendChild(daysContainer);
+      container.appendChild(card);
+    }
+
+    function renderDatePickerMini() {
+      const date = currentDate;
+      const monthNames = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+      const monthName = monthNames[date.getMonth()];
+
+      document.getElementById('picker-month-name').textContent = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      document.getElementById('picker-month-name').className = `month-header ${monthName}`;
+
+      const daysContainer = document.getElementById('picker-days');
+      daysContainer.innerHTML = '';
+
+      const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+      const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      const startDate = new Date(firstDay);
+      startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+      for (let i = 0; i < 42; i++) {
+        const cellDate = new Date(startDate);
+        cellDate.setDate(cellDate.getDate() + i);
+
+        const dayCell = document.createElement('div');
+        dayCell.className = 'mini-day';
+
+        if (cellDate.getMonth() !== date.getMonth()) {
+          dayCell.classList.add('other-month');
+        } else {
+          dayCell.style.cursor = 'pointer';
+          dayCell.addEventListener('click', () => {
+            currentDate = new Date(cellDate);
+            updateDateDisplay();
+            renderTodoList();
+            renderEventList();
+            renderDatePickerMini();
+          });
+        }
+
+        const dateKey = formatDateKey(cellDate);
+        const allEvents = getEvents();
+        if (allEvents[dateKey] && allEvents[dateKey].length) {
+          dayCell.classList.add('has-event');
+        }
+
+        dayCell.textContent = cellDate.getDate();
+        daysContainer.appendChild(dayCell);
+      }
+    }
+
+    // ===== VIEW SWITCHING =====
+    function switchView(viewName) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(`${viewName}-view`).classList.add('active');
+
+      document.querySelectorAll('.segment').forEach(s => s.classList.remove('active'));
+      document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+    }
+
+    // ===== EVENT LISTENERS =====
+    document.querySelectorAll('[data-view]').forEach(btn => {
+      btn.addEventListener('click', () => switchView(btn.dataset.view));
+    });
+
+    document.getElementById('add-todo-btn').addEventListener('click', addTodo);
+    document.getElementById('todo-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addTodo();
+    });
+
+    document.getElementById('addEventBtn').addEventListener('click', addEvent);
+    document.getElementById('eventTitle').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addEvent();
+    });
+
+    document.getElementById('today-btn').addEventListener('click', () => {
+      currentDate = new Date();
+      updateDateDisplay();
+      renderTodoList();
+      renderEventList();
+      renderDatePickerMini();
+    });
+
+    // ===== INIT =====
+    function init() {
+      updateDateDisplay();
+      renderYearOverview();
+      renderTodoList();
+      renderEventList();
+      renderDatePickerMini();
     }
 
     init();
